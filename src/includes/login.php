@@ -1,5 +1,5 @@
 <?php
-if(isset($_SESSION["loginError"])) {
+if(isset($_SESSION["loginError"]) && !isset($_SESSION["loggedIn"]) && is_null($_SESSION["loginError"])) {
     echo '<div class="display-box loginpopup" style="display: block;">';
 } else {
     echo '<div class="display-box loginpopup">';

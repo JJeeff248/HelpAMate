@@ -43,7 +43,7 @@ echo <<<HTML
         <main>
         HTML;
     
-        if(isset($_SESSION["loginError"])) {
+        if(isset($_SESSION["loginError"]) && !isset($_SESSION["loggedIn"]) && is_null($_SESSION["loginError"])) {
             echo '<div class="blurbg" style="display: block;"></div>';
         } else {
             echo '<div class="blurbg"></div>';

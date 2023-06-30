@@ -97,6 +97,7 @@
         $dbcheck_record = mysqli_fetch_assoc($dbcheck_result);
         
         $frid = $dbcheck_record['FundraiserId'];
+        $_SESSION['loggedIn'] = $frid;
         
         header("Location: fundraiser.php?frid=".$frid);
         exit;
