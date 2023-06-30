@@ -106,10 +106,10 @@ echo "<label for='Goal'>Goal</label>
             <div class='flex'>
                 <span class='currency'>$</span>\n";
 if (isset($user['Goal'])) {
-    echo "<input type='number' id='Goal' name='Goal' placeholder='$100' max='50000' min='100' required
+    echo "<input type='number' id='Goal' name='Goal' placeholder='100' max='50000' min='100' required
             value='" . $user['Goal'] . "'>\n";
 } else {
-    echo "<input type='number' id='Goal' name='Goal' placeholder='$100' max='50000' min='100' required>\n";
+    echo "<input type='number' id='Goal' name='Goal' placeholder='100' max='50000' min='100' required>\n";
 }
 echo <<<HTML
             </div>
