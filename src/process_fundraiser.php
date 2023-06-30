@@ -130,14 +130,41 @@
         $pass_query->close();
         
         if (password_verify($pass, $storedPass)) {
-            $delete_user = $dbc->prepare("DELETE FROM Fundraiser WHERE Fundraiser.FundraiserId = ?");
+            $delete_user = $dbc->prepare("DELETE FROM Fundraiser WHERE FundraiserId = ?");
             $delete_user->bind_param('i', $_POST["frid"]);
             $delete_user->execute();
             $delete_user->close();
+
+            // delete from pledges
+            $delete_pledge = $dbc->prepare("DELETE FROM Pledges WHERE FundraiserId = ?");
+            $delete_pledge->bind_param('i', $_POST["frid"]);
+            $delete_pledge->execute();
+            $delete_pledge->close();
+
+            // Check query executed
+            $test = $dbc->prepare("SELECT FundraiserId FROM Fundraiser WHERE FundraiserId = ?");
+            $test->bind_param('i', $_POST["frid"]);
+            $test->execute();
+            $test->bind_result($test);
+            $test->fetch();
+            $nrows = $test->num_rows;
+            $test->close();
+
+            if ($nrows > 0) {
+                $_SESSION['error'] = "error'>There was an error deleting your account. Please contact support";
+                header("Location: " . $_SESSION['page']);
+                exit;
+            }
         } else {
-            header($homePage);
+            $_SESSION['error'] = "error'>Incorrect password";
+            header("Location: " . $_SESSION['page']);
+            exit;
         }
-            
+        
+        unset($_SESSION['activeUser']);
+        unset($_SESSION['loggedIn']);
+        header($homePage);
+        exit;
     } else {
         header($homePage);
         exit;
