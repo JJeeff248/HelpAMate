@@ -11,8 +11,9 @@ if (isset($_GET['action'])) {
 
 $_SESSION['page'] = "user_info.php?action=" . $action;
 
+
 if ($action == 'Create' && isset($_SESSION['activeUser'])) {
-    $title = "Sign Up!";
+    $title = "Sign up!";
 } elseif ($action == 'Edit' && isset($_SESSION['activeUser'])) {
     $title = "Update";
 } elseif ($action == 'Create') {
@@ -68,10 +69,10 @@ if (isset($user['dob'])) {
 
 echo "<label for='email'>Email</label>\n";
 if (isset($user['Email'])) {
-    echo "<input type='email' id='email' name='email' placeholder='Email' required
+    echo "<input type='email' id='email' name='Email' placeholder='Email' required
             value='" . $user['Email'] . "'>\n";
 } else {
-    echo "<input type='email' id='email' name='email' placeholder='Email' required>\n";
+    echo "<input type='email' id='email' name='Email' placeholder='Email' required>\n";
 }
 
 

@@ -67,10 +67,10 @@
         
         if(isset($_SESSION['activeUser']['Frid'])) {
             $frid = $_SESSION['activeUser']['Frid'];
-            $fundraiser = array("Frid"=> $frid,"FName"=>$fname, "LName"=>$lname, "DoB"=>$userDob,
+            $fundraiser = array("Frid"=> $frid,"FName"=>$fname, "LName"=>$lname, "dob"=>$userDob,
                                     "Email"=>$email, "Charity"=>$charity, "Blurb"=>$blurb, "Goal"=>$goal);
         } else {
-            $fundraiser = array("FName"=>$fname, "LName"=>$lname, "DoB"=>$userDob,
+            $fundraiser = array("FName"=>$fname, "LName"=>$lname, "dob"=>$userDob,
                                     "Email"=>$email, "Charity"=>$charity, "Blurb"=>$blurb, "Goal"=>$goal);
         }
         

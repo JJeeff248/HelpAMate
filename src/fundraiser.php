@@ -51,7 +51,7 @@
                 || isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 'admin') {
                 echo "<span id='edit'><a href='user_info.php?action=Edit'>Edit</a></span>";
                 $fundraiser = array("Frid"=>$frId, "FName"=>$fundraiser_record['FName'],
-                                "LName"=>$fundraiser_record['LName'], "DoB"=>$fundraiser_record['DoB'],
+                                "LName"=>$fundraiser_record['LName'], "dob"=>$fundraiser_record['DoB'],
                                     "Email"=>$fundraiser_record['Email'], "Charity"=>$fundraiser_record['Charity'],
                                     "Blurb"=>$fundraiser_record['Blurb'], "Goal"=>$fundraiser_record['Goal']);
                 $_SESSION['activeUser'] = $fundraiser;
