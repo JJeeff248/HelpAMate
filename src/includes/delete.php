@@ -20,14 +20,16 @@ echo <<<HTML
             <h2>Delete</h2>
             <p>Deleting your fundraiser cannot be undone.</p>
             <p>Are you sure you want to continue?</p>
-            <label class="container">
-                <input type="radio" name="radio" id='yes' calss='delete_confirm'>
-                <span class="checkmark delete_confirm">Yes</span>
-            </label>
-            <label class="container">
-                <input type="radio" calss='delete_confirm' name="radio" value="no">
-                <span class="checkmark delete_confirm" onclick='toggleHide(this)'>No</span>
-            </label>
+            <span>
+                <label class="container">
+                    <input type="radio" name="radio" id='yes' calss='delete_confirm'>
+                    <span class="checkmark delete_confirm">Yes</span>
+                </label>
+                <label class="container">
+                    <input type="radio" calss='delete_confirm' name="radio" value="no">
+                    <span class="checkmark delete_confirm" onclick='toggleHide(this)'>No</span>
+                </label>
+            </span>
 
             <input id="confirm" name="Password" style='display:none' type="password" placeholder="Password" required>
             <input type="hidden" value="{$_SESSION['activeUser']['Frid']}" name="frid" />
