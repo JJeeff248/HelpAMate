@@ -24,7 +24,7 @@
                 </div>
                 <?php
                     while ($fundraiser_record = (mysqli_fetch_assoc($fundraiser_result))) {
-                        $pledge_query = "SELECT SUM(Pledge) FROM Donations
+                        $pledge_query = "SELECT SUM(Pledge) FROM Pledges
                                         WHERE FundraiserId = ".$fundraiser_record["FundraiserId"];
                         $pledge_result = mysqli_query($dbc, $pledge_query);
                         $pledge_record = mysqli_fetch_assoc($pledge_result);

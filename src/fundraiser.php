@@ -26,7 +26,7 @@
     $_SESSION['page'] = 'fundraiser.php?frid='.$frId;
 
 
-    $sum_query = "SELECT SUM(Pledge) FROM Donations WHERE FundraiserId = ".$frId;
+    $sum_query = "SELECT SUM(Pledge) FROM Pledges WHERE FundraiserId = ".$frId;
     $sum_result = mysqli_query($dbc, $sum_query);
     $sum_record = mysqli_fetch_assoc($sum_result);
     $ammt_raised = $sum_record['SUM(Pledge)'];
@@ -76,7 +76,7 @@
     
     <div id='pledges'>
         <?php
-            $pledge_query = "SELECT * FROM Donations WHERE FundraiserId = ".$frId;
+            $pledge_query = "SELECT * FROM Pledges WHERE FundraiserId = ".$frId;
             $pledge_result = mysqli_query($dbc, $pledge_query);
             while($pledge_record = mysqli_fetch_assoc($pledge_result)) {
                 echo <<<HTML

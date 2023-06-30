@@ -10,7 +10,7 @@
 
     function insertDonation($dbc) {
         // Insert donation in to db
-        $addPledge = $dbc->prepare("INSERT INTO Donations (DonorEmail, FundraiserId, Pledge, DisplayName)
+        $addPledge = $dbc->prepare("INSERT INTO Pledges (DonorEmail, FundraiserId, Pledge, DisplayName)
                                     VALUES (?, ?, ?, ?)");
         $addPledge->bind_param("siis", $_SESSION['DonorEmail'], $_SESSION['frId'],
                                         $_SESSION['Pledge'], $_SESSION['DisplayName']);
