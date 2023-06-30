@@ -23,11 +23,11 @@ echo <<<HTML
             <h2>Pledge</h2>
 HTML;
 
-if (isset($_SESSION['emailerror'])) { echo "<span id='{$_SESSION['emailerror']}'></span>"; }
+if (isset($_SESSION['emailerror'])) { echo "<span id='{$_SESSION['emailerror']}</span>"; }
 
 echo <<<HTML
-            <input type="email" required name="Email"   title="Email format: example@example.com" placeholder="Email"
-                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+            <input type="email" required name="DonorEmail"   title="Email format: example@example.com"
+                placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
             <input type="text" required name="DisplayName" title="2 to 10 characters" placeholder="Display Name"
                 pattern=".{2,15}">
             
@@ -52,13 +52,17 @@ echo <<<HTML
             
             <div class="flex" id="othertext" style="display:none;"> <!-- https://www.youtube.com/watch?v=Uu8_7XhRzV0 -->
                 <span class="currency">$</span>
-                <input type='number' id="other" name='other' placeholder='100' max="100" min="5"
 HTML;
-if (isset($user['other'])) {echo "value='" . $user['other'] ."'";}
+
+if (isset($user['other'])) {
+    echo "<input type='number' id='other' name='other' placeholder='100' max='100 min='5' value='$user[other]'>\n";
+} else {
+    echo "<input type='number' id='other' name='other' placeholder='100' max='100 min='5'>\n";
+}
+
 echo <<<HTML
->
             </div>
-            <input type="submit" value="Pledge" class="submit">
+            <input type="submit" name="submit" value="Pledge" class="submit">
             
         </div>
     </form>

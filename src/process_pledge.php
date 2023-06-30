@@ -21,8 +21,8 @@
     }
 
     // Set variables using data sent from pledge.php form
-    if (isset($_POST['Email']) && isset($_POST['DisplayName']) && isset($_POST['radio'])) {
-        $email = trim(mysqli_real_escape_string($dbc, $_POST['Email']));
+    if (isset($_POST['DonorEmail']) && isset($_POST['DisplayName']) && isset($_POST['radio'])) {
+        $email = trim(mysqli_real_escape_string($dbc, $_POST['DonorEmail']));
         $displayName = trim(mysqli_real_escape_string($dbc, $_POST['DisplayName']));
         $pledge = trim(mysqli_real_escape_string($dbc, $_POST['radio']));
         
@@ -42,7 +42,7 @@
         // Check if email is in the data base
         $dbcheckRecord = donorCheck($dbc);
         
-        if (isset($dbcheckRecord['Email']) && $dbcheckRecord['Email'] == $_SESSION['DonorEmail']) {
+        if (isset($dbcheckRecord['DonorEmail']) && $dbcheckRecord['DonorEmail'] == $_SESSION['DonorEmail']) {
             $_SESSION['DonorEmail'] = $dbcheckRecord['DonorEmail'];
             header("Location: email_check.php");
             exit;
@@ -74,3 +74,6 @@
             exit;
         }
     }
+
+    header("Location: ".$_SESSION['page']);
+    exit;
