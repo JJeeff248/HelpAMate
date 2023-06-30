@@ -47,7 +47,7 @@
             $check = 1;
             $_SESSION['error'] = "error'>You must be between 13 and 120";
             $userDob = '';
-        } elseif (!(filter_var($email, FILTER_VALIDATE_EMAIL))) {
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $check = 1;
             $_SESSION['error'] = "error'>Please enter a valid email\n".$email;
             $email = '';
@@ -78,7 +78,7 @@
         
         if ($check == 1) {
             $_SESSION['activeUser'] = $fundraiser;
-            header("Location: ".$_SESSION['page']);
+            header("Location: " . $_SESSION['page']);
             exit;
         }
     }
