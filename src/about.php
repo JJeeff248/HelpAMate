@@ -1,32 +1,45 @@
 <?php
-	session_start();
-	include("includes/public_connection.php");
-	
-	$title = "About";
+    session_start();
+    include_once "includes/public_connection.php";
+    
+    $title = "About | Help a Mate";
 
-	include("includes/page_template.php");
-	include("includes/login.php");
+    include_once "includes/page_template.php";
+    include_once "includes/login.php";
 
-	$_SESSION['page'] = 'about.php';
+    $_SESSION['page'] = 'about.php';
 
-?>
+    echo <<<HTML
 
-<main>
-	
-	<div class="content" style="background-image: url('images/about.jpg'); background-size: cover; height:350px;" title="Photo by Adonyi Gábor from Pexels" alt="Photo of yellow flowers by Adonyi Gábor from Pexels">
-	</div>
-	
-	<div class="content">
 
-		<h2>About</h2>
-		
-		<p>Here at Help a Mate we are dedicated to providing a platform for people to spread love and bring joy to other people's lifes.</p>
-		<p>Fundraisers can create an account to fundraise for anything from personal adventures to starting a charity event.</p>
+    <div class="content" id="about-image" title="Photo by Adonyi Gábor from Pexels"
+            alt="Photo of yellow flowers by Adonyi Gábor from Pexels">
+    </div>
+    
+    <div class="content">
 
-	</div>
-			
+        <h2>About</h2>
+        
+        <p>
+            Here at Help a Mate we are dedicated to providing a platform for people to spread love
+            and bring joy to other people's lifes. Fundraisers can create an account to raise funds for
+            anything from personal adventures to starting a charity event.
+            Find something you are passionate about and share it with the world!
+        </p>
+        <p>
+            <br>
+            <strong>Please note that this is a mock website and is not intended to be used for fundraising</strong>
+            <br>
+            This was created for my NCEA level 3 Web development course where we learnt about PHP, JavaScript and SQL.
+            We were tasked with making a fundraising website that links to a backend
+            database with secure logins and fast responses times.
+        </p>
+
+    </div>
+            
 </main>
 
-		
-	</body>
+        
+    </body>
 </html>
+HTML;

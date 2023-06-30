@@ -1,27 +1,27 @@
-function toggleHide() {
-	
-	
-	var btn = event.target.className;
-	var y = document.querySelector(".blurbg");
+function toggleHide(element) {
+    
+    let btn = element.className;
+    let y = document.querySelector(".blurbg");
+    let x;
 
-	if (btn.includes("login")) {
-		var x = document.querySelector(".loginpopup");
-	} else if (btn.includes("pledge")) {
-		var x = document.querySelector(".pledge");
-	} else if (btn.includes("delete")) {
-		var x = document.querySelector(".deletepopup");
-	}
-	
-	if (x.style.display == '') {
-		x.style.display = "none";
-		y.style.display = "none";
-	}
-	
-	if (x.style.display === "none") {
-		x.style.display = "block";
-		y.style.display = "block";
-	} else if (x.style.display === "block") {
-		x.style.display = "none";
-		y.style.display = "none";
-	}
-} 
+    if (btn.includes("login")) {
+        x = document.querySelector(".loginpopup");
+    } else if (btn.includes("pledge")) {
+        x = document.querySelector(".pledge");
+    } else if (btn.includes("delete")) {
+        x = document.querySelector(".deletepopup");
+    }
+    
+    if (x.style.display == '') {
+        x.style.display = "none";
+        y.style.display = "none";
+    }
+    
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        y.style.display = "block";
+    } else if (x.style.display === "block") {
+        x.style.display = "none";
+        y.style.display = "none";
+    }
+}
