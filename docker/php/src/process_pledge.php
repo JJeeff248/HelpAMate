@@ -9,6 +9,19 @@
     }
 
     function insertDonation($dbc) {
+        // Check pledge is positive
+        if($_SESSION['Pledge'] <= 5) {
+            $_SESSION['Pledge'] = 5;
+            $_SESSION['pledgeError'] = "error'>Pledge must be greater than or equal to 5";
+            header("Location: ".$_SESSION['page']);
+            exit;
+        } elseif ($_SESSION['Pledge'] > 100) {
+            $_SESSION['Pledge'] = 100;
+            $_SESSION['pledgeError'] = "error'>Pledge must be less than or equal to 100";
+            header("Location: ".$_SESSION['page']);
+            exit;
+        }
+
         // Insert donation in to db
         $addPledge = $dbc->prepare("INSERT INTO Pledges (DonorEmail, FundraiserId, Pledge, DisplayName)
                                     VALUES (?, ?, ?, ?)");
@@ -69,7 +82,7 @@
             insertDonation($dbc);
         } elseif ($_POST['submit'] == 'No') {
             // Ask for new email
-            $_SESSION['emailerror'] = "error'>Please enter a new email";
+            $_SESSION['pledgeError'] = "error'>Please enter a new email";
             header('Location: '.$_SESSION['page']);
             exit;
         }
