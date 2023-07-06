@@ -47,8 +47,8 @@
     
     <div class="content fundraiser">
         <?php
-            if(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == $frId
-                || isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 'admin') {
+            if(isset($_SESSION['loggedIn']) && ($_SESSION['loggedIn'] == $frId
+                || $_SESSION['loggedIn'] == 'admin')) {
                 echo "<span id='edit'><a href='user_info.php?action=Edit'>Edit</a></span>";
                 $fundraiser = array("Frid"=>$frId, "FName"=>$fundraiser_record['FName'],
                                 "LName"=>$fundraiser_record['LName'], "dob"=>$fundraiser_record['DoB'],
@@ -81,8 +81,17 @@
             while($pledge_record = mysqli_fetch_assoc($pledge_result)) {
                 echo <<<HTML
                         <div class='content pledges' style='margin-top: 10px;'>
-                            <h3>{$pledge_record["DisplayName"]}</h3>
-                            <p>Pledged \${$pledge_record["Pledge"]}
+                            <span class='donor'>
+                                <h3>{$pledge_record["DisplayName"]}</h3>
+                        HTML;
+                if(isset($_SESSION['loggedIn']) && ($_SESSION['loggedIn'] == $frId
+                || $_SESSION['loggedIn'] == 'admin')) {
+                                echo '<div class="remove">&#xD7;</div>';
+                            }
+                echo <<<HTML
+                            </span>
+                            <p>Pledged \${$pledge_record["Pledge"]}</p>
+                            <span hidden data-pledge-id='{$pledge_record["DonationId"]}'></span>
                         </div>
                     HTML;
             }

@@ -308,6 +308,27 @@ nav ul li button {
     margin-bottom: 1rem;
 }
 
+.pledges .donor {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    padding-left: 0;
+}
+
+.pledges .donor * {
+    width: fit-content;
+    margin: 0;
+}
+
+.pledges .remove {
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.pledges .remove:hover {
+    color: var(--danger-color);
+}
+
 /* ---------- Pledge ---------- */
 input[type=number] {
     appearance: textfield;
