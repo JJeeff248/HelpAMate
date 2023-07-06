@@ -69,7 +69,7 @@
             insertDonation($dbc);
         } elseif ($_POST['submit'] == 'No') {
             // Ask for new email
-            $_SESSION['emailerror'] = "error'>Please enter a new email";
+            $_SESSION['pledgeError'] = "error'>Please enter a new email";
             header('Location: '.$_SESSION['page']);
             exit;
         }

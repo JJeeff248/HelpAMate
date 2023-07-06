@@ -23,7 +23,7 @@ echo <<<HTML
             <h2>Pledge</h2>
 HTML;
 
-if (isset($_SESSION['emailerror'])) { echo "<span id='{$_SESSION['emailerror']}</span>"; }
+if (isset($_SESSION['pledgeError'])) { echo "<span id='{$_SESSION['pledgeError']}</span>"; }
 
 echo <<<HTML
             <input type="email" required name="DonorEmail"   title="Email format: example@example.com"
