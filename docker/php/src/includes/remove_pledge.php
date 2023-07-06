@@ -8,6 +8,8 @@ echo <<<HTML
                         <p>Name: <strong id="pledgeName"></strong></p>
                         <p>Amount: <strong id="pledgeAmount"></strong></p>
 
+                        <input type="hidden" name="pledgeId" id="pledgeId" value="">
+
                         <span class="removepledge">
                             <span name="submit" class="submit removepledge input" onclick='toggleHide(this)'>
                                 Cancel
