@@ -23,6 +23,7 @@
     include_once "includes/page_template.php";
     include_once "includes/login.php";
     include_once "includes/pledge.php";
+    include_once "includes/remove_pledge.php";
     $_SESSION['page'] = 'fundraiser.php?frid='.$frId;
 
 
@@ -80,18 +81,19 @@
             $pledge_result = mysqli_query($dbc, $pledge_query);
             while($pledge_record = mysqli_fetch_assoc($pledge_result)) {
                 echo <<<HTML
-                        <div class='content pledges' style='margin-top: 10px;'>
+                        <div class='content pledgeBox' style='margin-top: 10px;'>
                             <span class='donor'>
                                 <h3>{$pledge_record["DisplayName"]}</h3>
                         HTML;
                 if(isset($_SESSION['loggedIn']) && ($_SESSION['loggedIn'] == $frId
                 || $_SESSION['loggedIn'] == 'admin')) {
-                                echo '<div class="remove">&#xD7;</div>';
+                    echo '<div class="pledgeBox remove" onclick="toggleHide(this)" data-pledge-id="'
+                        . $pledge_record["DonationId"] . '" data-pledge-name="' . $pledge_record["DisplayName"]
+                        . '" data-pledge-amount="' . $pledge_record["Pledge"] . '">&#xD7;</div>';
                             }
                 echo <<<HTML
                             </span>
                             <p>Pledged \${$pledge_record["Pledge"]}</p>
-                            <span hidden data-pledge-id='{$pledge_record["DonationId"]}'></span>
                         </div>
                     HTML;
             }
