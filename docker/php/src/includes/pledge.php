@@ -55,9 +55,9 @@ echo <<<HTML
 HTML;
 
 if (isset($user['other'])) {
-    echo "<input type='number' id='other' name='other' placeholder='100' max='100 min='5' value='$user[other]'>\n";
+    echo "<input type='number' id='other' name='other' placeholder='100' max='100' min='5' value='$user[other]'>\n";
 } else {
-    echo "<input type='number' id='other' name='other' placeholder='100' max='100 min='5'>\n";
+    echo "<input type='number' id='other' name='other' placeholder='100' max='100' min='5'>\n";
 }
 
 echo <<<HTML
