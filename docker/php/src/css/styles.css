@@ -158,7 +158,7 @@ nav ul li button {
     text-align: left;
 }
 
-.form input, .form select, .form button, .form textarea, .form a{
+.form input, .form select, .form button, .form textarea, .form a, .form .input {
     text-align-last:center;
     padding: 10px 0px;
     border: none;
@@ -302,10 +302,60 @@ nav ul li button {
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.pledges {
+.pledgeBox {
     width: 80%;
     padding: 1rem 0.5rem 1rem 1.5rem;
     margin-bottom: 1rem;
+}
+
+.pledgeBox .donor {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    padding-left: 0;
+}
+
+.pledgeBox .donor * {
+    width: fit-content;
+    margin: 0;
+}
+
+.pledgeBox .remove {
+    cursor: pointer;
+    font-weight: bolder;
+    padding: 0;
+}
+
+.pledgeBox .remove:hover {
+    color: var(--danger-color);
+}
+
+.removepledge * {
+    margin: 0;
+}
+
+.display-box.removepledge form p {
+    text-align: left;
+}
+
+.display-box.removepledge * {
+    padding-bottom: 0.5rem;
+}
+
+span.removepledge {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0;
+    padding-top: 0.5rem;
+}
+
+div.removepledge form div.form p:first-child {
+    padding-bottom: 1.5rem;
+}
+
+span.removepledge * {
+    width: 45%;
 }
 
 /* ---------- Pledge ---------- */
