@@ -3,10 +3,11 @@
     include_once "includes/public_connection.php";
 
     if (isset($_GET['frid'])) {
-        $frId = trim(mysqli_real_escape_string($dbc, $_GET['frid']));
+        $frId = trim(mysqli_real_escape_string($dbc, $_GET['frid'] ?? ''));
         $_SESSION['frId'] = $frId;
     } else {
         header("Location: index.php");
+        exit;
     }
     
     //add query for fundraisers
@@ -14,11 +15,13 @@
     
     $fundraiser_result = mysqli_query($dbc, $fundraiser_query);
     $fundraiser_record = mysqli_fetch_assoc($fundraiser_result);
-    $title = $fundraiser_record['FName']." ".$fundraiser_record['LName']." | ".$fundraiser_record['Charity'];
 
     if (empty($fundraiser_record)) {
         header("Location: index.php");
+        exit;
     }
+
+    $title = $fundraiser_record['FName']." ".$fundraiser_record['LName']." | ".$fundraiser_record['Charity'];
 
     include_once "includes/page_template.php";
     include_once "includes/login.php";

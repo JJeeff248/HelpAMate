@@ -149,10 +149,10 @@ ALTER TABLE Fundraiser
 --
 -- DATABASE USERS
 --
-CREATE USER 'public'@'%' IDENTIFIED WITH mysql_native_password BY 'change-me';
+CREATE USER 'public'@'%' IDENTIFIED BY 'change-me';
 GRANT SELECT ON fundraiser.* TO 'public'@'%';
 
-CREATE USER 'admin'@'%' IDENTIFIED WITH mysql_native_password BY 'change-me1';
+CREATE USER 'admin'@'%' IDENTIFIED BY 'change-me1';
 GRANT ALL PRIVILEGES ON fundraiser.* TO 'admin'@'%';
 
 FLUSH PRIVILEGES;

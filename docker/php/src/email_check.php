@@ -3,6 +3,7 @@
     session_start();
 
     $title = "Email Check";
+    $donorEmail = $_SESSION['DonorEmail'] ?? '';
     include_once "includes/page_template.php";
 
 
@@ -11,7 +12,7 @@ echo <<<HTML
         <form method='post' action="process_pledge.php">
             <div class="form" id="emailcheck">
                 <span>You have used this email address before: <br></span>
-                <span id='email'>{$_SESSION['DonorEmail']}<br></span>
+                <span id='email'>{$donorEmail}<br></span>
                 <span>Would you like to use it again?<br></span>
                 <span?>
                     <input type="submit" name='submit' class="submit" value="Yes">

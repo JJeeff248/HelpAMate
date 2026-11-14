@@ -2,7 +2,7 @@
     session_start();
     include_once 'includes/admin_connection.php';
 
-    $previous_page_redirect = "Location: ".$_SESSION['page'];
+    $previous_page_redirect = "Location: ".($_SESSION['page'] ?? 'index.php');
 
 
     function error() {
@@ -15,7 +15,7 @@
 
     if(isset($_POST['username']) && $_POST['username'] !== "") {
         $user = strtolower(trim($_POST['username']));
-        $pass = trim($_POST['password']);
+        $pass = trim($_POST['password'] ?? '');
         
         if ($user == "admin") {
             $login_query = $dbc->prepare("SELECT Password FROM Admin WHERE Username = ?");
@@ -24,7 +24,7 @@
             $login_query->bind_result($storedPass);
             $login_query->fetch();
             
-            if($verify = password_verify($pass, $storedPass)) {
+            if(isset($storedPass) && ($verify = password_verify($pass, $storedPass))) {
                 $_SESSION['loggedIn'] = 'admin';
                 unset($_SESSION['loginError']);
                 header($previous_page_redirect);

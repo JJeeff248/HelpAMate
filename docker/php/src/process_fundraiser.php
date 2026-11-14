@@ -8,13 +8,13 @@
         
         $check = 0;
         
-        $fname = trim(mysqli_real_escape_string($dbc, $_POST['FName']));
-        $lname = trim(mysqli_real_escape_string($dbc, $_POST['LName']));
-        $userDob = trim(mysqli_real_escape_string($dbc, $_POST['dob']));
-        $email = trim(mysqli_real_escape_string($dbc, $_POST['Email']));
-        $charity = trim(mysqli_real_escape_string($dbc, $_POST['Charity']));
-        $blurb = trim($_POST['Blurb']);
-        $goal = trim(mysqli_real_escape_string($dbc, $_POST['Goal']));
+        $fname = trim(mysqli_real_escape_string($dbc, $_POST['FName'] ?? ''));
+        $lname = trim(mysqli_real_escape_string($dbc, $_POST['LName'] ?? ''));
+        $userDob = trim(mysqli_real_escape_string($dbc, $_POST['dob'] ?? ''));
+        $email = trim(mysqli_real_escape_string($dbc, $_POST['Email'] ?? ''));
+        $charity = trim(mysqli_real_escape_string($dbc, $_POST['Charity'] ?? ''));
+        $blurb = trim($_POST['Blurb'] ?? '');
+        $goal = trim(mysqli_real_escape_string($dbc, $_POST['Goal'] ?? ''));
         
         // Password Check
         if(isset($_POST['Password']) && isset($_POST['ConfirmPassword'])
@@ -28,10 +28,14 @@
         
         /* Calculate Age */
         /* https://thisinterestsme.com/php-calculate-age-date-of-birth/ */
-        $dob = new DateTime($userDob);
-        $now = new DateTime();
-        $difference = $now->diff($dob);
-        $age = $difference->y;
+        if ($userDob === '') {
+            $age = 0;
+        } else {
+            $dob = new DateTime($userDob);
+            $now = new DateTime();
+            $difference = $now->diff($dob);
+            $age = $difference->y;
+        }
         
         /* Error Checking */
         
@@ -83,7 +87,9 @@
         }
     }
 
-    if ($_POST['submit'] == "Sign up!") {
+    $submit = $_POST['submit'] ?? '';
+
+    if ($submit == "Sign up!") {
         $add_pledge = $dbc->prepare("INSERT INTO `Fundraiser`(`FName`, `LName`, `DoB`,
                     `Email`, `Password`, `Charity`, `Blurb`, `Goal`)
                 VALUES (?,?,?,?,?,?,?,?)");
@@ -102,7 +108,7 @@
         header("Location: fundraiser.php?frid=".$frid);
         exit;
         
-    } elseif ($_POST['submit'] == "Update") {
+    } elseif ($submit == "Update") {
         $user = $_SESSION['activeUser'];
         
         $update_fundraiser = $dbc->prepare("UPDATE `Fundraiser` SET `FName` = ?,`LName` = ?,
@@ -115,11 +121,12 @@
         header("Location: fundraiser.php?frid=".$frid);
         exit;
         
-    } elseif ($_POST['submit'] == "Delete") {
+    } elseif ($submit == "Delete") {
         if (isset($_POST['Password'])) {
             $pass = $_POST['Password'];
         } else {
             header($homePage);
+            exit;
         }
         
         $pass_query = $dbc->prepare("SELECT Password FROM Fundraiser WHERE FundraiserId = ?");
@@ -129,7 +136,7 @@
         $pass_query->fetch();
         $pass_query->close();
         
-        if (password_verify($pass, $storedPass)) {
+        if (isset($storedPass) && password_verify($pass, $storedPass)) {
             $delete_user = $dbc->prepare("DELETE FROM Fundraiser WHERE FundraiserId = ?");
             $delete_user->bind_param('i', $_POST["frid"]);
             $delete_user->execute();

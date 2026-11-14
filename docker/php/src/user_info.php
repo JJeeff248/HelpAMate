@@ -6,7 +6,8 @@ include_once "includes/public_connection.php";
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
 } else {
-    header("Location: " . $_SESSION['page']);
+    header("Location: " . ($_SESSION['page'] ?? 'index.php'));
+    exit;
 }
 
 $_SESSION['page'] = "user_info.php?action=" . $action;
@@ -20,6 +21,7 @@ if ($action == 'Create' && isset($_SESSION['activeUser'])) {
     $title = "Sign up!";
 } else {
     header("Location: index.php");
+    exit;
 }
 
 include_once "includes/page_template.php";
@@ -28,7 +30,7 @@ include_once "includes/login.php";
 if ($title == "Update") {
     include_once "includes/delete.php";
 }
-$user = $_SESSION['activeUser'];
+$user = $_SESSION['activeUser'] ?? [];
 $value = "value='";
 
 echo <<<HTML
