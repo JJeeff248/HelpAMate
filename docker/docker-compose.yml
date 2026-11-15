@@ -5,6 +5,12 @@ services:
       dockerfile: ./mysql/Dockerfile
     image: fundraiser-db
     restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_PUBLIC_PASSWORD: ${MYSQL_PUBLIC_PASSWORD}
+      MYSQL_ADMIN_PASSWORD: ${MYSQL_ADMIN_PASSWORD}
+      MYSQL_APP_HOST: ${MYSQL_APP_HOST}
 
   app:
     build:
@@ -14,11 +20,18 @@ services:
     restart: always
     expose:
       - "80"
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_PUBLIC_USER: ${MYSQL_PUBLIC_USER}
+      MYSQL_PUBLIC_PASSWORD: ${MYSQL_PUBLIC_PASSWORD}
+      MYSQL_ADMIN_USER: ${MYSQL_ADMIN_USER}
+      MYSQL_ADMIN_PASSWORD: ${MYSQL_ADMIN_PASSWORD}
     depends_on:
       - db
 
   nginx:
-    image: nginx:alpine
+    image: nginx:1.30.6-alpine
     restart: always
     ports:
       - "80:80"
@@ -42,3 +55,10 @@ volumes:
   certbot-etc:
   certbot-var:
   certbot-webroot:
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1

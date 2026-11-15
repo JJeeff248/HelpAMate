@@ -3,9 +3,13 @@
     include_once 'includes/admin_connection.php';
 
     function donorCheck($dbc) {
-        $dbcheckQuery = "SELECT * FROM Donors WHERE DonorEmail = '".$_SESSION['DonorEmail']."'";
-        $dbcheckResult = mysqli_query($dbc, $dbcheckQuery);
-        return mysqli_fetch_assoc($dbcheckResult);
+        $donorEmail = $_SESSION['DonorEmail'];
+        $dbcheckStmt = $dbc->prepare("SELECT * FROM Donors WHERE DonorEmail = ?");
+        $dbcheckStmt->bind_param("s", $donorEmail);
+        $dbcheckStmt->execute();
+        $dbcheckRecord = $dbcheckStmt->get_result()->fetch_assoc();
+        $dbcheckStmt->close();
+        return $dbcheckRecord;
     }
 
     function insertDonation($dbc) {

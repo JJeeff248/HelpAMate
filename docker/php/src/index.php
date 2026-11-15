@@ -23,12 +23,13 @@
                     <strong>This is a mock website and not to be used for actual fundraisers.</strong>
                 </div>
                 <?php
+                    $sum_stmt = $dbc->prepare("SELECT SUM(Pledge) AS raised FROM Pledges WHERE FundraiserId = ?");
                     while ($fundraiser_record = (mysqli_fetch_assoc($fundraiser_result))) {
-                        $pledge_query = "SELECT SUM(Pledge) FROM Pledges
-                                        WHERE FundraiserId = ".$fundraiser_record["FundraiserId"];
-                        $pledge_result = mysqli_query($dbc, $pledge_query);
-                        $pledge_record = mysqli_fetch_assoc($pledge_result);
-                        $ammt_raised = $pledge_record['SUM(Pledge)'];
+                        $fundraiserId = (int) $fundraiser_record["FundraiserId"];
+                        $sum_stmt->bind_param("i", $fundraiserId);
+                        $sum_stmt->execute();
+                        $pledge_record = $sum_stmt->get_result()->fetch_assoc();
+                        $ammt_raised = $pledge_record['raised'];
                         if ($ammt_raised == '') {
                             $ammt_raised = 0;
                         }
@@ -55,6 +56,7 @@
                                 </article>
                             HTML;
                     }
+                    $sum_stmt->close();
                 ?>
             </div>
             
