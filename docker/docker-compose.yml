@@ -5,8 +5,6 @@ services:
       dockerfile: ./mysql/Dockerfile
     image: fundraiser-db
     restart: always
-    ports:
-      - 3356:3306
   app:
     build:
       context: .
