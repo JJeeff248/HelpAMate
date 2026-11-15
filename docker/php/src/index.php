@@ -2,7 +2,7 @@
     session_start();
     include_once "includes/public_connection.php";
     if(isset($_SESSION["loginerror"])) {
-        session_unset($_SESSION["loginerror"]);
+        unset($_SESSION["loginerror"]);
     }
     
     $title = "Explore | Help a Mate";
@@ -29,6 +29,9 @@
                         $pledge_result = mysqli_query($dbc, $pledge_query);
                         $pledge_record = mysqli_fetch_assoc($pledge_result);
                         $ammt_raised = $pledge_record['SUM(Pledge)'];
+                        if ($ammt_raised == '') {
+                            $ammt_raised = 0;
+                        }
                         $percentage = number_format($ammt_raised / $fundraiser_record['Goal'] * 100, 2);
                         if ($percentage >= 100) {
                             $width_percentage =100;

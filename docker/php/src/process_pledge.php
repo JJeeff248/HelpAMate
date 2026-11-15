@@ -13,12 +13,12 @@
         if($_SESSION['Pledge'] <= 5) {
             $_SESSION['Pledge'] = 5;
             $_SESSION['pledgeError'] = "error'>Pledge must be greater than or equal to 5";
-            header("Location: ".$_SESSION['page']);
+            header("Location: ".($_SESSION['page'] ?? 'index.php'));
             exit;
         } elseif ($_SESSION['Pledge'] > 100) {
             $_SESSION['Pledge'] = 100;
             $_SESSION['pledgeError'] = "error'>Pledge must be less than or equal to 100";
-            header("Location: ".$_SESSION['page']);
+            header("Location: ".($_SESSION['page'] ?? 'index.php'));
             exit;
         }
 
@@ -29,15 +29,15 @@
                                         $_SESSION['Pledge'], $_SESSION['DisplayName']);
         $addPledge->execute();
         $addPledge->close();
-        header("Location: ".$_SESSION['page']);
+        header("Location: ".($_SESSION['page'] ?? 'index.php'));
         exit;
     }
 
     // Set variables using data sent from pledge.php form
     if (isset($_POST['DonorEmail']) && isset($_POST['DisplayName']) && isset($_POST['radio'])) {
-        $email = trim(mysqli_real_escape_string($dbc, $_POST['DonorEmail']));
-        $displayName = trim(mysqli_real_escape_string($dbc, $_POST['DisplayName']));
-        $pledge = trim(mysqli_real_escape_string($dbc, $_POST['radio']));
+        $email = trim(mysqli_real_escape_string($dbc, $_POST['DonorEmail'] ?? ''));
+        $displayName = trim(mysqli_real_escape_string($dbc, $_POST['DisplayName'] ?? ''));
+        $pledge = trim(mysqli_real_escape_string($dbc, $_POST['radio'] ?? ''));
         
         // Set variables to sessions
         $_SESSION['DonorEmail'] = $email;
@@ -46,7 +46,7 @@
             
         // Get user inputed number when other was selected
         if($pledge == 'on') {
-            $pledge = trim(mysqli_real_escape_string($dbc, $_POST['other']));
+            $pledge = trim(mysqli_real_escape_string($dbc, $_POST['other'] ?? ''));
             $_SESSION['Pledge'] = $pledge;
         }
     }
@@ -83,10 +83,10 @@
         } elseif ($_POST['submit'] == 'No') {
             // Ask for new email
             $_SESSION['pledgeError'] = "error'>Please enter a new email";
-            header('Location: '.$_SESSION['page']);
+            header('Location: '.($_SESSION['page'] ?? 'index.php'));
             exit;
         }
     }
 
-    header("Location: ".$_SESSION['page']);
+    header("Location: ".($_SESSION['page'] ?? 'index.php'));
     exit;
