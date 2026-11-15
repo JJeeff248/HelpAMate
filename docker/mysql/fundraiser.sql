@@ -145,14 +145,3 @@ ALTER TABLE Pledges
 --
 ALTER TABLE Fundraiser
   MODIFY FundraiserId smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- DATABASE USERS
---
-CREATE USER 'public'@'%' IDENTIFIED BY 'change-me';
-GRANT SELECT ON fundraiser.* TO 'public'@'%';
-
-CREATE USER 'admin'@'%' IDENTIFIED BY 'change-me1';
-GRANT ALL PRIVILEGES ON fundraiser.* TO 'admin'@'%';
-
-FLUSH PRIVILEGES;

@@ -98,11 +98,7 @@
         $add_pledge->execute();
         $add_pledge->close();
         
-        $dbcheck_query = "SELECT FundraiserId FROM Fundraiser WHERE Email = '".$email."'";
-        $dbcheck_result = mysqli_query($dbc, $dbcheck_query);
-        $dbcheck_record = mysqli_fetch_assoc($dbcheck_result);
-        
-        $frid = $dbcheck_record['FundraiserId'];
+        $frid = $dbc->insert_id;
         $_SESSION['loggedIn'] = $frid;
         
         header("Location: fundraiser.php?frid=".$frid);

@@ -1,8 +1,5 @@
 FROM mysql:8.4
 
-ENV MYSQL_ROOT_PASSWORD=example
-ENV MYSQL_DATABASE=fundraiser
-
-COPY ./mysql/fundraiser.sql /init.sql
-
-CMD ["mysqld", "--init-file=/init.sql"]
+COPY ./mysql/fundraiser.sql /docker-entrypoint-initdb.d/01-schema.sql
+COPY ./mysql/init-users.sh /docker-entrypoint-initdb.d/02-users.sh
+RUN chmod 755 /docker-entrypoint-initdb.d/02-users.sh

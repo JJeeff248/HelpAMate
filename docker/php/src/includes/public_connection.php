@@ -1,7 +1,12 @@
 <?php
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    $dbc = mysqli_connect("db", "public", "change-me", "fundraiser", 3306); // change to public
-    if ($dbc == null) {
+    $host = getenv("MYSQL_HOST") ?: "db";
+    $user = getenv("MYSQL_PUBLIC_USER") ?: "public";
+    $pass = getenv("MYSQL_PUBLIC_PASSWORD");
+    $database = getenv("MYSQL_DATABASE") ?: "fundraiser";
+    if ($pass === false || $pass === "") {
+        http_response_code(500);
         echo "<h1>Sorry, you could not connect to the database</h1>";
         exit();
     }
+    $dbc = mysqli_connect($host, $user, $pass, $database, 3306);

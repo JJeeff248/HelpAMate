@@ -2,19 +2,18 @@
     session_start();
     include_once "includes/public_connection.php";
 
-    if (isset($_GET['frid'])) {
-        $frId = trim(mysqli_real_escape_string($dbc, $_GET['frid'] ?? ''));
-        $_SESSION['frId'] = $frId;
-    } else {
+    $frId = filter_input(INPUT_GET, "frid", FILTER_VALIDATE_INT);
+    if ($frId === false || $frId === null) {
         header("Location: index.php");
         exit;
     }
-    
-    //add query for fundraisers
-    $fundraiser_query = "SELECT * FROM Fundraiser WHERE FundraiserId = ".$frId;
-    
-    $fundraiser_result = mysqli_query($dbc, $fundraiser_query);
-    $fundraiser_record = mysqli_fetch_assoc($fundraiser_result);
+    $_SESSION['frId'] = $frId;
+
+    $fundraiser_stmt = $dbc->prepare("SELECT * FROM Fundraiser WHERE FundraiserId = ?");
+    $fundraiser_stmt->bind_param("i", $frId);
+    $fundraiser_stmt->execute();
+    $fundraiser_record = $fundraiser_stmt->get_result()->fetch_assoc();
+    $fundraiser_stmt->close();
 
     if (empty($fundraiser_record)) {
         header("Location: index.php");
@@ -30,10 +29,12 @@
     $_SESSION['page'] = 'fundraiser.php?frid='.$frId;
 
 
-    $sum_query = "SELECT SUM(Pledge) FROM Pledges WHERE FundraiserId = ".$frId;
-    $sum_result = mysqli_query($dbc, $sum_query);
-    $sum_record = mysqli_fetch_assoc($sum_result);
-    $ammt_raised = $sum_record['SUM(Pledge)'];
+    $sum_stmt = $dbc->prepare("SELECT SUM(Pledge) AS raised FROM Pledges WHERE FundraiserId = ?");
+    $sum_stmt->bind_param("i", $frId);
+    $sum_stmt->execute();
+    $sum_record = $sum_stmt->get_result()->fetch_assoc();
+    $sum_stmt->close();
+    $ammt_raised = $sum_record['raised'];
 
     if($ammt_raised == '') {
         $ammt_raised = 0;
@@ -80,8 +81,10 @@
     
     <div id='pledges'>
         <?php
-            $pledge_query = "SELECT * FROM Pledges WHERE FundraiserId = ".$frId;
-            $pledge_result = mysqli_query($dbc, $pledge_query);
+            $pledge_stmt = $dbc->prepare("SELECT * FROM Pledges WHERE FundraiserId = ?");
+            $pledge_stmt->bind_param("i", $frId);
+            $pledge_stmt->execute();
+            $pledge_result = $pledge_stmt->get_result();
             while($pledge_record = mysqli_fetch_assoc($pledge_result)) {
                 echo <<<HTML
                         <div class='content pledgeBox' style='margin-top: 10px;'>
@@ -100,6 +103,7 @@
                         </div>
                     HTML;
             }
+            $pledge_stmt->close();
         ?>
     </div>
             
