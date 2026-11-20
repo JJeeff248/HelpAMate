@@ -31,7 +31,7 @@ services:
       - db
 
   nginx:
-    image: nginx:1.30.6-alpine
+    image: nginx:1.30.7-alpine
     restart: always
     ports:
       - "80:80"
